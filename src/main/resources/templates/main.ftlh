@@ -81,7 +81,7 @@
 </head>
 <body>
 <nav class="navbar">
-    <div class="navbar-brand">Forum</div>
+    <div class="navbar-brand">Форум</div>
     <ul class="navbar-links">
         <li><a href="/login">Авторизация</a></li>
         <li><a href="/register">Регистрация</a></li>
@@ -96,6 +96,7 @@
         <h1>Добро пожаловать на наш форум!</h1>
         <p>Здесь вы можете общаться на различные темы.</p>
     </div>
+    <a href="/messages">Сообщения</a>
     <h2>Пользователи:</h2>
     <#list users as user>
         <p><b><a href="/user/${user.ID}">${user.username}</a></b><br></p>

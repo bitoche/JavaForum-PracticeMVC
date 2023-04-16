@@ -8,6 +8,9 @@ public interface IUserRepository {
     /*long getNextUserId();*/
     void AddUser(User user);
     User GetByID(long id);
+    User GetByLogin(String login);
+
     User GetByUsername(String username);
+
     List<User> GetAll();
 }

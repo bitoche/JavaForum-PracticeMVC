@@ -2,6 +2,7 @@ package com.example.forumjavatrue.Controllers;
 
 import com.example.forumjavatrue.Models.User;
 import com.example.forumjavatrue.Repository.IUserRepository;
+import com.example.forumjavatrue.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ import java.util.Date;
 public class RegistrationController {
 
     @Autowired
-    private IUserRepository userRepository;
+    private IUserService userService;
 
     @GetMapping
     public String registrationForm(Model model) {
@@ -28,7 +29,7 @@ public class RegistrationController {
     public String processRegistration(User user) {
         user.setRegisterDate(new Date());
         user.setMessageCounter(0);
-        userRepository.AddUser(user);
-        return "redirect:/login";
+        userService.AddUser(user);
+        return "redirect:/";
     }
 }

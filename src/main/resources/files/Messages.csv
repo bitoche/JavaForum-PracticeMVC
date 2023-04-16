@@ -1,1 +1,2 @@
-Id,SenderUsername,SendDate,ThreadTitle,Content
+Id,SenderID,SendDate,ThreadID,Content
+1,1,"2023-04-09 21:51:48",1,епта работает

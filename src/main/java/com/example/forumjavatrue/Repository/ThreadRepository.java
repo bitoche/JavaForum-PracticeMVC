@@ -16,7 +16,7 @@ import java.text.ParseException;
 import java.util.List;
 @Repository
 public class ThreadRepository implements IThreadRepository{
-    private String FILE_PATH = "C:\\Users\\Geome\\IdeaProjects\\ForumJavaTrue\\src\\main\\resources\\files\\Threads.csv";
+    private String FILE_PATH = "./src/main/resources/files/Threads.csv"; //C:\Users\Geome\IdeaProjects\ForumJavaTrue\src\main\resources\files\Threads.csv
     @Override
     public void Add(Thread thread) {
 

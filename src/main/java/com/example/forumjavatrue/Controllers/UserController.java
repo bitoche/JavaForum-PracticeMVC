@@ -17,7 +17,7 @@ import java.util.Date;
 @Controller
 public class UserController {
     @Autowired
-    private  final IUserService userService;
+    private final IUserService userService;
     public UserController(IUserService userService) {
         this.userService = userService;
     }

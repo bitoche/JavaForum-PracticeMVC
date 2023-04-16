@@ -8,19 +8,17 @@ import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.stereotype.Repository;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Repository
 public class UserRepository implements IUserRepository {
-    private String FILE_PATH = "C:\\Users\\Geome\\IdeaProjects\\ForumJavaTrue\\src\\main\\resources\\files\\Users.csv";
+    private String FILE_PATH = "./src/main/resources/files/Users.csv"; //C:\Users\Geome\IdeaProjects\ForumJavaTrue\src\main\resources\files\Users.csv
 
     /*public long getNextUserId() {
         long lastUserId = 0;
@@ -102,6 +100,36 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public User GetByLogin(String login) {
+        try {
+            FileReader filereader = new FileReader(FILE_PATH);
+            CSVReader csvReader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+            List<String[]> records = csvReader.readAll();
+
+            for (String[] record : records) {
+                String currentLogin = record[2];
+                if (currentLogin == login) {
+                    long id = Long.parseLong(record[0]);
+                    String username = record[1];
+                    Date registerDate = DateHelper.UnFormat(record[3]);
+                    int messageCounter = Integer.parseInt(record[4]);
+                    String password = record[5];
+                    User user = new User(id, username, login, registerDate, messageCounter, password);
+                    csvReader.close();
+                    return user;
+                }
+            }
+
+            csvReader.close();
+            return null;
+        } catch (IOException | CsvValidationException | ParseException e) {
+            e.printStackTrace();
+            return null;
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
     public User GetByUsername(String username) {
         try {
             FileReader filereader = new FileReader(FILE_PATH);
@@ -111,7 +139,7 @@ public class UserRepository implements IUserRepository {
             for (String[] record : records) {
                 String currentUsername = record[1];
                 if (currentUsername == username) {
-                    long id = Long.parseLong(record[1]);
+                    long id = Long.parseLong(record[0]);
                     String login = record[2];
                     Date registerDate = DateHelper.UnFormat(record[3]);
                     int messageCounter = Integer.parseInt(record[4]);
@@ -131,7 +159,6 @@ public class UserRepository implements IUserRepository {
             throw new RuntimeException(e);
         }
     }
-
     @Override
     public List<User> GetAll() {
         List<User> users = new ArrayList<>();

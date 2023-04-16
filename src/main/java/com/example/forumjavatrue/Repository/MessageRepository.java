@@ -20,9 +20,13 @@ import java.util.List;
 
 @Repository
 public class MessageRepository implements IMessageRepository {
-    private String FILE_PATH = "C:\\Users\\Geome\\IdeaProjects\\ForumJavaTrue\\src\\main\\resources\\files\\Messages.csv";
+    private String FILE_PATH = "./src/main/resources/files/Messages.csv"; //C:\Users\Geome\IdeaProjects\ForumJavaTrue\src\main\resources\files\Messages.csv
     private IUserRepository userRepository;
     private IThreadRepository threadRepository;
+    public MessageRepository(IUserRepository userRepository, IThreadRepository threadRepository){
+        this.userRepository = userRepository;
+        this.threadRepository = threadRepository;
+    }
 
     @Override
     public void Add(Message message) {
