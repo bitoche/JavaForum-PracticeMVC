@@ -5,6 +5,8 @@ import com.example.forumjavatrue.Repository.IMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class MessageService implements IMessageService{
 
@@ -15,6 +17,7 @@ public class MessageService implements IMessageService{
 
     @Override
     public void Add(Message message) {
+        message.setSendDate(new Date());
         messageRepository.Add(message);
     }
 

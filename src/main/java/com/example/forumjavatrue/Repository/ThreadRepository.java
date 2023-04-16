@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class ThreadRepository implements IThreadRepository{
@@ -86,6 +87,27 @@ public class ThreadRepository implements IThreadRepository{
 
     @Override
     public List<Thread> GetAll() {
-        return null;
+        List<Thread> threads = new ArrayList<>();
+        try {
+            FileReader filereader = new FileReader(FILE_PATH);
+            CSVReader csvReader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+            List<String[]> records = csvReader.readAll();
+
+            for (String[] record : records) { // порядок записи: Id, Title, Desc
+                long currentId = Long.parseLong(record[0]);
+                String title = record[1];
+                String description = record[2];
+                Thread thread = new Thread(currentId, title, description);
+                threads.add(thread);
+            }
+
+            csvReader.close();
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
+        }
+        return threads;
     }
+
 }

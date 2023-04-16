@@ -35,5 +35,11 @@ public class Thread {
         Title = title;
         Description = description;
     }
+
+    public Thread(String title, String description) {
+        Title = title;
+        Description = description;
+    }
+
     public Thread(){}
 }

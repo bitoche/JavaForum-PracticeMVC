@@ -96,7 +96,9 @@
         <h1>Добро пожаловать на наш форум!</h1>
         <p>Здесь вы можете общаться на различные темы.</p>
     </div>
-    <a href="/messages">Сообщения</a>
+    <a href="/messages" style="text-decoration: none; font-size: 20px">Сообщения</a>
+    <a style="text-decoration: none; font-size: 20px">  |  </a>
+    <a href="/threads" style="text-decoration: none; font-size: 20px">Треды</a>
     <h2>Пользователи:</h2>
     <#list users as user>
         <p><b><a href="/user/${user.ID}">${user.username}</a></b><br></p>

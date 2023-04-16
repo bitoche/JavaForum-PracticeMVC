@@ -18,5 +18,6 @@
     Password: <input type="text", name="Password" required><br><br>
     <input type="submit" value="Добавить пользователя"/>
 </form>
+<h3><a href="/">На главную</a></h3>
 </body>
 </html>
