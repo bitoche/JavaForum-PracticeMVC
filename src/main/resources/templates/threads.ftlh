@@ -9,7 +9,7 @@
 <h1>Форум</h1><hr>
 <h2>Треды:</h2>
 <#list threads as thread>
-    <strong>ID: ${thread.ID}</strong> Название: ${thread.title} <br> Описание: ${thread.description}"<br>
+    <strong>ID: ${thread.ID}</strong> Название: <a href="/thread/${thread.ID}">${thread.title}</a> <br> Описание: ${thread.description}"<br>
 </#list>
 
 <h3>Добавить тред</h3>

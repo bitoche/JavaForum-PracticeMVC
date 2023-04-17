@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -34,5 +35,10 @@ public class ThreadController {
     public String addThread(Thread thread){
         threadService.Add(thread);
         return "redirect:/threads";
+    }
+    @GetMapping("/thread/{id}")
+    public String gotoThreadInfo(@PathVariable long id, Model model){
+        model.addAttribute("thread", threadService.GetByID(id));
+        return "threadinfo";
     }
 }

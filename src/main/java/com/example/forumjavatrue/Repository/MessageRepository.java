@@ -57,8 +57,6 @@ public class MessageRepository implements IMessageRepository {
         } catch (CsvValidationException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @Override
