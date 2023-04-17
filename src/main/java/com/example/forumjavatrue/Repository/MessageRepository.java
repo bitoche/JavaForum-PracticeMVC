@@ -59,7 +59,43 @@ public class MessageRepository implements IMessageRepository {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public void DeleteByID(long id){
+        List<Message> messages = GetAll();
+        Message messageToRemove = null;
+        for (Message message : messages) {
+            if (message.getID() == id) {
+                messageToRemove = message;
+                break;
+            }
+            System.out.println("log// Не найдено Message: ID="+ id);
+        }
+        if (messageToRemove != null) {
+            messages.remove(messageToRemove);
+            try {
+                // Открываем файл на запись
+                CSVWriter writer = new CSVWriter(new FileWriter(FILE_PATH, false));
+                writer.writeNext(new String[]{"Id", "SenderID", "SendDate", "ThreadID", "Content"});
+                // Записываем данные всех сообщений, кроме удаленного
+                for (Message message : messages) {
+                    String[] record = {
+                            String.valueOf(message.getID()),
+                            String.valueOf(message.getSender().getID()),
+                            DateHelper.DoFormat(message.getSendDate()),
+                            String.valueOf(message.getThread().getID()),
+                            message.getContent()
+                    };
+                    writer.writeNext(record);
+                }
 
+                // Закрываем файл
+                writer.close();
+                System.out.println("log// Успешно удалено Message: ID=" + messageToRemove.getID());
+            } catch (IOException e) {
+                System.err.println("Ошибка сохранения файла: " + e.getMessage());
+            }
+        }
+    }
     @Override
     public Message GetByID(long id) {
         try {

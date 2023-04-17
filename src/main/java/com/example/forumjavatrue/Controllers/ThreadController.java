@@ -41,4 +41,13 @@ public class ThreadController {
         model.addAttribute("thread", threadService.GetByID(id));
         return "threadinfo";
     }
+    @PostMapping("/thread/{id}/delete")
+    public String deleteThread(long id) {
+        System.out.println("log//<ThreadController> Успешно сработал метод deleteThread");
+        if(threadService.CheckThread(id)){
+            System.out.println("log//<ThreadController>\t Найден thread с ID=" + id);
+            threadService.DeleteById(id);
+        }
+        return "redirect:/";
+    }
 }

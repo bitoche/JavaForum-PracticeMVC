@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 public interface IThreadService {
     void Add(Thread thread);
 
+    boolean CheckThread(long id);
+
+    void DeleteById(long id);
+
     Object GetByID(long id);
     Object ListThreads();
 

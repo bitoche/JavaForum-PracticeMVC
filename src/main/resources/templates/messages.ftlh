@@ -57,6 +57,19 @@
         input[type="submit"]:hover {
             background-color: #555;
         }
+        .btn-switch {
+
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-switch:hover {
+            background-color: #555;
+        }
         .message-container {
             background-color: #fff;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
@@ -97,7 +110,7 @@
     </style>
 </head>
 <body>
-<button onclick="toggleDarkMode()">Переключить тему</button>
+<button onclick="toggleDarkMode()" class="btn-switch">Переключить тему</button>
 <div class="container">
     <h1>Форум</h1>
     <hr>
@@ -106,9 +119,16 @@
     <div class="message-container">
         <strong>ID: ${message.ID}</strong>
         Сообщение: ${message.content} <br>
-        Отправитель: <a href="/user/${message.sender.ID}">${message.sender.username}</a><br>
-        Тред: <a href="/thread/${message.thread.ID}">${message.thread.title}</a><br>
+        Отправитель: <a href="<#if message.sender.ID != -1>/user/${message.sender.ID}</#if>">${message.sender.username}</a><br>
+        Тред: <a href="<#if message.thread.ID != -1>/thread/${message.thread.ID}</#if>">${message.thread.title}</a><br>
+        <!-- if вошедший_пользователь.id == message.sender.ID то доступна кнопка -->
+        <form action="/message/${message.ID}/delete" method="post">
+            <input type="hidden" value="${message.ID}" name="id">
+            <button type="submit">Удалить сообщение</button>
+            <small>доступно только вам</small>
+        </form>
     </div>
+
     </#list>
     <h3>Добавить сообщение</h3>
     <form action="/addMessage" method="POST">

@@ -37,4 +37,13 @@ public class MessageController {
         messageService.Add(message);
         return "redirect:/messages";
     }
+    @PostMapping("/message/{id}/delete")
+    public String deleteMessage(long id) {
+        System.out.println("log//<MessageController> Успешно сработал метод deleteMessage");
+        if(messageService.CheckMessage(id)){
+            System.out.println("log//<MessageController>\t Найден message с ID=" + id);
+            messageService.DeleteByID(id);
+        }
+        return "redirect:/";
+    }
 }

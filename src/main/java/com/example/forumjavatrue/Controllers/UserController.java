@@ -58,7 +58,7 @@ public class UserController {
         return gotoMain(model);
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/user/{id}/delete")
     public String deleteUser(long id) {
         System.out.println("log//<UserController> Успешно сработал метод deleteUser в UserController");
         if(userService.CheckUser(id)){

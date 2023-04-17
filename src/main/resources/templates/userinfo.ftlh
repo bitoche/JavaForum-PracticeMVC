@@ -14,7 +14,7 @@
         </p>
     </div>
     <!-- if вошедший_пользователь.ID == user.ID, то есть кнопка -->
-    <form action="/delete/${user.ID}" method="post">
+    <form action="/user/${user.ID}/delete" method="post">
         <input type="hidden" value="${user.ID}" name="id">
         <button type="submit">Удалить пользователя</button>
     </form>
