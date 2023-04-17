@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форум</title>
-    <style>
+    <#--<style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -107,7 +107,7 @@
         .dark-mode hr {
             border-bottom: 2px solid #fff;
         }
-    </style>
+    </style>-->
 </head>
 <body>
 <button onclick="toggleDarkMode()" class="btn-switch">Переключить тему</button>

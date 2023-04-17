@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форум</title>
-    <style>
+    <#--<style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -107,28 +107,40 @@
         .dark-mode hr {
             border-bottom: 2px solid #fff;
         }
-    </style>
+    </style>-->
 </head>
 <body>
-<button onclick="toggleDarkMode()" class="btn-switch">Переключить тему</button>
 <div class="container">
     <h1>Форум</h1>
     <hr>
     <h2>Сообщения:</h2>
     <#list messages as message>
-    <div class="message-container">
-        <strong>ID: ${message.ID}</strong>
-        Сообщение: ${message.content} <br>
-        Отправитель: <a href="<#if message.sender.ID != -1>/user/${message.sender.ID}</#if>">${message.sender.username}</a><br>
-        Тред: <a href="<#if message.thread.ID != -1>/thread/${message.thread.ID}</#if>">${message.thread.title}</a><br>
-        <!-- if вошедший_пользователь.id == message.sender.ID то доступна кнопка -->
-        <form action="/message/${message.ID}/delete" method="post">
-            <input type="hidden" value="${message.ID}" name="id">
-            <button type="submit">Удалить сообщение</button>
-            <small>доступно только вам</small>
-        </form>
-    </div>
-
+        <div class="message-container">
+            <strong>ID: ${message.ID}</strong>
+            Сообщение: ${message.content} <br>
+            Отправитель: <a
+                    href="<#if message.sender.ID != -1>/user/${message.sender.ID}</#if>">${message.sender.username}</a><br>
+            Тред: <a
+                    href="<#if message.thread.ID != -1>/thread/${message.thread.ID}</#if>">${message.thread.title}</a><br>
+            <!-- if вошедший_пользователь.id == message.sender.ID то доступна кнопка -->
+            <form action="/message/${message.ID}/delete" method="post">
+                <input type="hidden" value="${message.ID}" name="id">
+                <button type="submit" onclick="return confirmDelete()">Удалить сообщение</button>
+                <small>доступно только вам</small>
+            </form>
+        </div>
+        <script>
+            function confirmDelete() {
+                if (confirm("Вы действительно хотите удалить сообщение пользователя ${message.sender.username}?")) {
+                    // Если пользователь подтвердил удаление, отправляем форму
+                    document.getElementById("delete-user-form").submit();
+                    return true;
+                } else {
+                    // Если пользователь отменил удаление, ничего не делаем
+                    return false;
+                }
+            }
+        </script>
     </#list>
     <h3>Добавить сообщение</h3>
     <form action="/addMessage" method="POST">
@@ -141,23 +153,6 @@
     <h3><a href="/">На главную</a></h3>
 
 </div>
-<script>
-    function toggleDarkMode() {
-        const body = document.querySelector('body');
-        body.classList.toggle('dark-mode');
-    }
-    const body = document.querySelector("body");
-    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
 
-    function switchTheme(e) {
-        if (e.target.checked) {
-            body.classList.add("dark-mode");
-        } else {
-            body.classList.remove("dark-mode");
-        }
-    }
-
-    toggleSwitch.addEventListener("change", switchTheme, false);
-</script>
 </body>
 </html>
