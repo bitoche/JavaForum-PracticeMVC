@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IThreadRepository {
     void Add(Thread thread);
-    boolean DeleteByID(long id);
+    void DeleteByID(long id);
     Thread GetByID(long id);
     List<Thread> GetAll();
 }

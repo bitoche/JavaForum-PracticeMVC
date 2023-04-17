@@ -10,7 +10,7 @@ public class DateHelper {
         try{
             return date == null ? "" : DATE_FORMAT.format(date) ;
         } catch (Exception e) {
-            System.out.println("log// Не удалось конвертировать дату из Date в String");
+            System.out.println("log//<DateHelper> Не удалось конвертировать дату из Date в String");
             throw new RuntimeException(e);
         }
 
@@ -19,7 +19,7 @@ public class DateHelper {
         try {
             return DATE_FORMAT.parse(stringDate);
         } catch (ParseException e) {
-            System.out.println("log// Не удалось конвертировать дату из String в Date");
+            System.out.println("log//<DateHelper> Не удалось конвертировать дату из String в Date");
             throw new RuntimeException(e);
         }
     }

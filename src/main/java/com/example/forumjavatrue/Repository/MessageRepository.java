@@ -2,6 +2,8 @@ package com.example.forumjavatrue.Repository;
 
 import com.example.forumjavatrue.Models.Message;
 import com.example.forumjavatrue.Models.User;
+import com.example.forumjavatrue.Models.Thread;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
@@ -13,7 +15,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -74,7 +75,17 @@ public class MessageRepository implements IMessageRepository {
                     String stringSendDate = record[2];
                     int threadID = Integer.parseInt(record[3]);
                     String content = record[4];
-                    Message message = new Message(ID, content, userRepository.GetByID(senderID), threadRepository.GetByID(threadID), DateHelper.UnFormat(stringSendDate));
+                    User sender = new User(-1,"<deleted>","<deleted>",new Date(),-1,"<deleted>");
+                    if(userRepository.GetByID(senderID)!=null){
+                        sender=userRepository.GetByID(senderID);
+                    }
+                    else System.out.println("log//<MessageRepos> Не найден sender: ID="+ record[1]);
+                    Thread thread = new Thread(-1,"<deleted>","<deleted>");
+                    if(threadRepository.GetByID(threadID)!=null){
+                        thread = threadRepository.GetByID(threadID);
+                    }
+                    else System.out.println("log//<MessageRepos> Не найден thread: ID="+ record[3]);
+                    Message message = new Message(ID, content, sender, thread, DateHelper.UnFormat(stringSendDate));
                     message.setID(currentId);
                     csvReader.close();
                     return message;
@@ -105,7 +116,17 @@ public class MessageRepository implements IMessageRepository {
                 String stringSendDate = record[2];
                 int threadID = Integer.parseInt(record[3]);
                 String content = record[4];
-                Message message = new Message(content, userRepository.GetByID(senderID), threadRepository.GetByID(threadID), DateHelper.UnFormat(stringSendDate));
+                User sender = new User(-1,"<deleted>","<deleted>",new Date(),-1,"<deleted>");
+                if(userRepository.GetByID(senderID)!=null){
+                    sender=userRepository.GetByID(senderID);
+                }
+                else System.out.println("log//<MessageRepos> Не найден sender: ID="+ record[1]);
+                Thread thread = new Thread(-1,"<deleted>","<deleted>");
+                if(threadRepository.GetByID(threadID)!=null){
+                    thread = threadRepository.GetByID(threadID);
+                }
+                else System.out.println("log//<MessageRepos> Не найден thread: ID="+ record[3]);
+                Message message = new Message(content, sender, thread, DateHelper.UnFormat(stringSendDate));
                 message.setID(currentId);
                 messages.add(message);
             }

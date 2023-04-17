@@ -60,9 +60,9 @@ public class UserController {
 
     @PostMapping("/delete/{id}")
     public String deleteUser(long id) {
-        System.out.println("//log Успешно сработал метод deleteUser в UserController");
+        System.out.println("log//<UserController> Успешно сработал метод deleteUser в UserController");
         if(userService.CheckUser(id)){
-            System.out.println("//log Найден пользователь с ID=" + id);
+            System.out.println("log//<UserController>\t Найден пользователь с ID=" + id);
             userService.DeleteByID(id);
         }
         return "redirect:/";

@@ -2,6 +2,7 @@ package com.example.forumjavatrue.Repository;
 
 import com.example.forumjavatrue.Models.Message;
 import com.example.forumjavatrue.Models.Thread;
+import com.example.forumjavatrue.Models.User;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
@@ -50,8 +51,39 @@ public class ThreadRepository implements IThreadRepository{
     }
 
     @Override
-    public boolean DeleteByID(long id) {
-        return false;
+    public void DeleteByID(long id){
+        List<Thread> threads = GetAll();
+        Thread threadToRemove = null;
+        for (Thread thread : threads) {
+            if (thread.getID() == id) {
+                threadToRemove = thread;
+                break;
+            }
+        }
+        if (threadToRemove != null) {
+            threads.remove(threadToRemove);
+            try {
+                // Открываем файл на запись
+                CSVWriter writer = new CSVWriter(new FileWriter(FILE_PATH, false));
+                writer.writeNext(new String[]{"ID","Title","Desc"});
+                // Записываем данные все треды, кроме удаленного
+                for (Thread thread : threads) {
+                    String[] record = {
+                            String.valueOf(thread.getID()),
+                            thread.getTitle(),
+                            thread.getDescription(),
+                    };
+                    writer.writeNext(record);
+                }
+
+                // Закрываем файл
+                writer.close();
+                System.out.println("log//<ThreadRepos> Успешно удален Thread: ID=" + id);
+            } catch (IOException e) {
+                System.err.println("Ошибка сохранения файла: " + e.getMessage());
+            }
+        }
+        else System.out.println("log//<ThreadRepos> Не найден Thread: ID=" + id);
     }
 
     @Override
@@ -70,7 +102,7 @@ public class ThreadRepository implements IThreadRepository{
                     Thread thread = new Thread(ID, title, desc);
                     thread.setID(currentId);
                     csvReader.close();
-                    System.out.println("log// Успешно получен из файла Thread[id = " + ID + ", Title = " + title + ", Desc = " + desc + "]");
+                    System.out.println("log//<ThreadRepos> Успешно получен из файла Thread[id = " + ID + ", Title = " + title + ", Desc = " + desc + "]");
                     return thread;
                 }
             }
