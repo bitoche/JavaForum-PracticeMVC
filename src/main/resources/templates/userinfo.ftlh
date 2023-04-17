@@ -1,16 +1,24 @@
 <#if user??>
-<head>
+    <head>
 
-    <title>FORUM: ${user.username}</title>
+        <title>FORUM: ${user.username}</title>
 
-</head>
-<body>
-<h1>Страница пользователя ${user.username}</h1><hr>
+    </head>
+    <body>
+    <h1>Страница пользователя ${user.username}</h1>
+    <hr>
 
-<div>
-    <p><b><a>ID: ${user.ID}, Username: ${user.username}</a></b><br>Login: ${user.login}<#-- ; RegisterDate: ${user.registerDate} НЕ ВЫВОДИТСЯ ТК ФОРМАТ В КОТОРОМ ХРАНИТСЯ ДАТА НЕ СТАНДАРТНЫЙ--></p>
-</div>
-</body>
+    <div>
+        <p><b><a>ID: ${user.ID},
+                    Username: ${user.username}</a></b><br>Login: ${user.login}<#-- ; RegisterDate: ${user.registerDate} НЕ ВЫВОДИТСЯ ТК ФОРМАТ В КОТОРОМ ХРАНИТСЯ ДАТА НЕ СТАНДАРТНЫЙ-->
+        </p>
+    </div>
+    <!-- if вошедший_пользователь.ID == user.ID, то есть кнопка -->
+    <form action="/delete/${user.ID}" method="post">
+        <input type="hidden" value="${user.ID}" name="id">
+        <button type="submit">Удалить пользователя</button>
+    </form>
+    </body>
 </#if>
 <!DOCTYPE html>
 <html lang="RU">

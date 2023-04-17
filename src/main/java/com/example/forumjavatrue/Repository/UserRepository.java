@@ -190,4 +190,40 @@ public class UserRepository implements IUserRepository {
         }
         return users;
     }
+    @Override
+    public void DeleteByID(long id){
+        List<User> users = GetAll();
+        User userToRemove = null;
+        for (User user : users) {
+            if (user.getID() == id) {
+                userToRemove = user;
+                break;
+            }
+        }
+        if (userToRemove != null) {
+            users.remove(userToRemove);
+            try {
+                // Открываем файл на запись
+                CSVWriter writer = new CSVWriter(new FileWriter(FILE_PATH, false));
+                writer.writeNext(new String[]{"ID","Username","Login","RegisterDate","MessageCount","Password"});
+                // Записываем данные всех студентов, кроме удаленного
+                for (User user : users) {
+                    String[] record = {
+                            String.valueOf(user.getID()),
+                            user.getUsername(),
+                            user.getLogin(),
+                            DateHelper.DoFormat(user.getRegisterDate()), // в datehelper предусмотрен null
+                            String.valueOf(user.getMessageCounter()),
+                            user.getPassword()
+                    };
+                    writer.writeNext(record);
+                }
+
+                // Закрываем файл
+                writer.close();
+            } catch (IOException e) {
+                System.err.println("Ошибка сохранения файла: " + e.getMessage());
+            }
+        }
+    }
 }

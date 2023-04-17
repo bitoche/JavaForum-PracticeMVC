@@ -40,5 +40,10 @@ public class UserService implements IUserService {
     public boolean CheckUser(long id) {
        return userRepository.GetByID(id) == null ? false : true;
     }
+
+    @Override
+    public void DeleteByID(long id) {
+        userRepository.DeleteByID(id);
+    }
 }
 

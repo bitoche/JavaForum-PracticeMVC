@@ -13,4 +13,5 @@ public interface IUserRepository {
     User GetByUsername(String username);
 
     List<User> GetAll();
+    void DeleteByID(long id);
 }

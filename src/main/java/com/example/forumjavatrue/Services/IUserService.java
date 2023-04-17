@@ -10,4 +10,5 @@ public interface IUserService {
     public Object GetByUsername(String username);
     Object ListUsers();
     boolean CheckUser(long id);
+    void DeleteByID(long id);
 }

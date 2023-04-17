@@ -4,6 +4,7 @@ public class Thread {
     private long ID;
     private String Title;
     private String Description;
+    /*private Message[] Messages;*/
 
     public long getID() {
         return ID;
@@ -28,17 +29,25 @@ public class Thread {
     public void setDescription(String description) {
         Description = description;
     }
+    /*public Message[] getMessages(){
+        return Messages;
+    }
+    public void setMessages(Message[] messages){
+        Messages = messages;
+    }*/
 
 
-    public Thread(long ID, String title, String description) {
+    public Thread(long ID, String title, String description/*, Message[] messages*/) {
         this.ID = ID;
         Title = title;
         Description = description;
+        /*Messages = messages;*/
     }
 
-    public Thread(String title, String description) {
+    public Thread(String title, String description/*, Message[] messages*/) {
         Title = title;
         Description = description;
+/*        Messages = messages*/;
     }
 
     public Thread(){}
